@@ -1,0 +1,17 @@
+scikit-learn
+omegaconf
+kaldiio
+pytest
+scipy
+tox
+tqdm
+prettytable
+pandas
+flake8
+black
+jupyter
+jupyterlab
+setuptools
+wheel
+simplejson
+webdataset
