@@ -8,7 +8,7 @@
     </p>
     </p>
     <a href=""><img src="https://img.shields.io/badge/arXiv-soon-b31b1b" alt="version"></a>
-    <a href="https://https://huggingface.co/theio/CryFish"><img src="https://img.shields.io/badge/Cryfish-🤗-ffcc66" alt="version"></a>
+    <a href="https://huggingface.co/theio/CryFish"><img src="https://img.shields.io/badge/Cryfish-🤗-ffcc66" alt="version"></a>
     <a href="https://www.apache.org/licenses/LICENSE-2.0"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="mit"></a>
 </div>
 
