@@ -11,6 +11,9 @@ from cryfish.pl_module.cryfish_module import CryFishDecoder
 from cryfish.models.fixed_stride_connector import FixedSRConnector
 from cryfish.models.connector_with_frontend import ConnectorWithFrontend
 
+import soundfile as sf
+import librosa
+
 
 def _build_connector(frontend_model_name_or_path: str) -> ConnectorWithFrontend:
     """Create ConnectorWithFrontend exactly as in training script."""
@@ -147,4 +150,68 @@ if __name__ == "__main__":
     )
     print(f"Model loaded to {next(model.parameters()).device}")
 
+    # Prepare generation settings (set at least max_new_tokens or max_length)
+    model.prepare_for_generating(
+        generate_cfg={
+            "max_new_tokens": 128,
+            "do_sample": False,
+            "temperature": 1.0,
+        },
+        llm_tokenizer=tokenizer,
+    )
 
+    system_prompt = "You are CryFish - a helpful assistant that can answer users' questions about audio recordings (between Speech tags)."
+    user_question_base = "<Speech><SpeechHere></Speech> "
+    
+    user_question = user_question_base + "What is happening in the audio?"
+    audio_path = ???
+    
+    # audio preparation
+    audio, sr = sf.read(audio_path)
+    if sr != 16000:
+        audio = librosa.resample(audio, orig_sr=sr, target_sr=16000, res_type="fft")
+        sr = 16000
+    if len(audio.shape) == 2:
+        audio = audio[:, 0] # or audio.mean(axis=1)
+
+    # prompt preparation
+    chat = [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": user_question},
+    ]
+    prompt_with_template = tokenizer.apply_chat_template(
+                                                    chat, 
+                                                    tokenize=False,
+                                                    add_generation_prompt=True,
+        )
+    left_prompt, right_prompt = prompt_with_template.split("<SpeechHere>")
+    # prompt_list_tokens_ids must be List[len=B] where each element is
+    # [left_prompt_tokens_ids, *delta_tokens_ids, right_prompt_tokens_ids]
+    # For B=1 and no deltas: [[left_ids, right_ids]]
+    left_ids = torch.tensor(
+        tokenizer.encode(left_prompt, add_special_tokens=False), dtype=torch.long
+    ).to(model.device)
+    right_ids = torch.tensor(
+        tokenizer.encode(right_prompt, add_special_tokens=False), dtype=torch.long
+    ).to(model.device)
+    prompt_list_tokens_ids = [[left_ids, right_ids]]
+    
+    
+    batch = {}
+    batch["audio_feats.pth"] = (
+        torch.from_numpy(audio).unsqueeze(0).unsqueeze(-1).to(model.device)
+    )
+    batch["audio_feats_attention_mask.pth"] = (
+        torch.ones(1, len(audio), dtype=torch.bool).to(model.device)
+    )
+    
+    # skipping att mask for batch size 1
+    batch["audio_id2sample_id.pth"] = [0]
+    batch["prompt_list_tokens_ids.pth"] = prompt_list_tokens_ids
+    batch["__key__"] = ["0"]
+
+    # exit(0)
+    # inference
+    outputs = model.predict_step(batch)
+    print(f"Output: {outputs['predicted.txt'][0]}")
+         
