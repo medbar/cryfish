@@ -1,9 +1,21 @@
-# CryFish 
 
-Repository for CryFish model, training script and a bit of additional info on data generation pipeline.
+<div align="center">
+    <h1>
+    CryFish <img src="media/logo.png" alt="logo" style="height: 50px;">
+    </h1>
+    <p>
+    Official PyTorch code and supplementary materials for CryFish Audio LLM 
+    </p>
+    </p>
+    <a href=""><img src="https://img.shields.io/badge/arXiv-soon-b31b1b" alt="version"></a>
+    <a href="https://https://huggingface.co/theio/CryFish"><img src="https://img.shields.io/badge/Cryfish-🤗-ffcc66" alt="version"></a>
+    <a href="https://www.apache.org/licenses/LICENSE-2.0"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="mit"></a>
+</div>
 
 
-
+<div align="center">
+<img src="media/rose_metrics.png" alt="metrics" style="height: 400px;">
+</div>
 
 ## Running training and inference
 
@@ -11,14 +23,14 @@ Repository for CryFish model, training script and a bit of additional info on da
 We're providing a basic example for inference with predefined path for audio in `cryfish/inference.py`
 
 
-You need to pass path for predownloaded `wavlm-large`, `Qwen2.5-7b-instruct` and `cryfish.safetensors` with model weights. \\
+You need to pass path for predownloaded `wavlm-large`, `Qwen2.5-7b-instruct` and `cryfish.safetensors` with [model weights](https://https://huggingface.co/theio/CryFish). \
 
 
 ```bash
 python -m cryfish.inference "path/to/wavlm-large" "path/to/Qwen2.5-7B-Instruct" --ckpt "/path/to/cryfish.safetensors"
 
 ```
-Safetensors file contains LoRA for LLM, connector weights, and finetuned weights for wavlm. We're not providing separate lora adapter due to it containing `lm_head`, which makes exported adapter be way bigger than checkpoint. 
+Safetensors file contains LoRA for LLM, connector weights, and finetuned weights for wavlm. We're not made a separate LoRA adapter due to LoRA having `lm_head` module, that breaks exporting an the adapter ends up way bigger than the checkpoint with all weights. 
 
 ### Training
 Basic example of running training can be found in `cryfish/train.py`\\
@@ -32,10 +44,17 @@ python -m cryfish.train \
   "/path/to/val_annotations.json"
 ```
 
-`train_annotations.json` - there's small example of how the data should look like and what keys are expected. 
+`data_preparation/data_train_example.json` + `data_preparation/readme.md` - there's small example of how the data should look like and what keys are expected. 
 
 
-There is also a small script for merging ckpts, our code does not save weights which are not being trained, so if you want to finetune model without unfreezing wavlm, then you'll have to merge wavlm weights into ckpt or safetensors. 
+There is also a small script for merging ckpts, our code does not save weights which are not being trained, so if you will finetune model without unfreezing wavlm, then afterwards you'll have to merge wavlm weights into ckpt or safetensors, 
+otherwise final ckpt will not have finetuned WavLM
 ```bash
 python -m cryfish.pl_module.utils_ckpt ckpt_1.ckpt ckpt_2.ckpt out.safetensors
 ```
+
+## FAQ
+
+### Why CryFish?
+
+One of the earliest checkpoints on question about audio events answered "I can hear fishes crying", so that stick as a working name for the model.
