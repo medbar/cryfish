@@ -1,7 +1,7 @@
 
 <div align="center">
     <h1>
-    CryFish <img src="media/logo.png" alt="logo" style="height: 50px;">
+    CryFish <img src="media/logo.png" alt="logo" height="75" style="vertical-align: middle;">
     </h1>
     <p>
     Official PyTorch code and supplementary materials for CryFish Audio LLM 
