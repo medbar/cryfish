@@ -1,0 +1,34 @@
+{
+  "annotation": [
+    {
+      "paths": [
+        "/mnt/asr/username/datasets/multilingual-tts/wavs/2e24ea57-78dc-438e-91e9-67c11c8f1c02.wav"
+      ],
+      "db_name": "multitts_filtered",
+      "taxonomy": [
+        "Speech",
+        "Safety & Security",
+        "Synthetic Speech Detection",
+        "DeepFake Voice Recognition"
+      ],
+      "task": "QA",
+      "Q": "Is this audio a deepfake? Can you tell me which languages are spoken in this audio?",
+      "text": "Yes, it is a deepfake. Russian, Mandarin Chinese, Bengali, and Turkish."
+    },
+    {
+      "paths": [
+        "/mnt/asr/username/datasets/multilingual-tts/wavs/fb550abb-e5f7-4da7-8554-74301de2e537.wav"
+      ],
+      "db_name": "multitts_filtered",
+      "taxonomy": [
+        "Speech",
+        "Safety & Security",
+        "Synthetic Speech Detection",
+        "DeepFake Voice Recognition"
+      ],
+      "task": "QA",
+      "Q": "Did the speaker say something about nature in Vietnamese?",
+      "text": "Yes, they talked about the sky's blue color and Vietnam's green vegetation."
+    },
+  ]
+}
