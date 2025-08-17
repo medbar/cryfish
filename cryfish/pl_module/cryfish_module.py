@@ -12,7 +12,7 @@ from pathlib import Path
 from transformers import LlamaTokenizer, StoppingCriteriaList, GenerationConfig
 
 from peft import LoraConfig, TaskType, get_peft_model, PeftModel
-
+from safetensors.torch import load_file
 
 from torchmetrics import Metric
 from torchmetrics.aggregation import MeanMetric
@@ -438,9 +438,13 @@ class CryFishDecoder(LightningModule):
                 state.pop(name)
 
     def inplace_load_from_checkpoint(self, ckpt_path):
-        data = torch.load(ckpt_path, map_location="cpu")["state_dict"]
+        if str(ckpt_path).endswith(".safetensors"):
+            data = load_file(ckpt_path)
+        else:
+            data = torch.load(ckpt_path, map_location="cpu")["state_dict"]
         missed, unexpected = self.load_state_dict(data, strict=self.strict_loading)
         logging.debug(f"Loaded model from {ckpt_path}\n{missed=}\n{unexpected=}")
+        print(f"Loaded model from {ckpt_path}\n{len(missed)=}\n{len(unexpected)=}")
         return self
 
 

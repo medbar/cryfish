@@ -71,7 +71,7 @@ def _build_lora_config() -> LoraConfig:
 def load_cryfish_for_inference(
     wavlm_path: str,
     llm_path: str,
-    ckpt_path: str | None = None,
+    weights_path: str | None = None,
     device: str | None = None,
     seed: int = 42,
 ):
@@ -107,8 +107,13 @@ def load_cryfish_for_inference(
         DEBUG=False,
     )
 
-    if ckpt_path is not None and os.path.exists(ckpt_path):
-        model.inplace_load_from_checkpoint(ckpt_path)
+    print(f"Loading weights from {weights_path}")
+    if weights_path is not None:
+        if os.path.exists(weights_path):
+            model.inplace_load_from_checkpoint(weights_path)
+            # print(f"Weights loaded from {weights_path}")
+        else:
+            raise FileNotFoundError(f"Weights file not found: {weights_path}")
 
     model = model.to(device).eval()
     return model, tokenizer
@@ -137,7 +142,7 @@ if __name__ == "__main__":
     model, tokenizer = load_cryfish_for_inference(
         wavlm_path=args.wavlm_path,
         llm_path=args.llm_path,
-        ckpt_path=args.ckpt,
+        weights_path=args.ckpt,
         device=args.device,
     )
     print(f"Model loaded to {next(model.parameters()).device}")
