@@ -164,7 +164,7 @@ if __name__ == "__main__":
     user_question_base = "<Speech><SpeechHere></Speech> "
     
     user_question = user_question_base + "What is happening in the audio?"
-    audio_path = ???
+    audio_path = str((Path(__file__).resolve().parent.parent / "media" / "kitten_crying_16k.wav"))
     
     # audio preparation
     audio, sr = sf.read(audio_path)
@@ -213,5 +213,5 @@ if __name__ == "__main__":
     # exit(0)
     # inference
     outputs = model.predict_step(batch)
-    print(f"Output: {outputs['predicted.txt'][0]}")
+    print(f"Output: {outputs['predicted.txt'][0]}")  # Output: A cat is meowing.<|im_end|>
          
