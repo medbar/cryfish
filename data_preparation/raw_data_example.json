@@ -1,7 +1,7 @@
 {
   "annotation": [
     {
-      "path": "/mnt/asr/username/datasets/multilingual-tts/wavs/c8c441c3-ecbf-46b2-9350-270b19bd99d5.wav",
+      "path": "./datasets/multilingual-tts/wavs/c8c441c3-ecbf-46b2-9350-270b19bd99d5.wav",
       "speaker_global_id": "multilingual-ttsMichael",
       "asr_text_punct": "আমার 计算机 没有 功能 করছে না, তাই আমি নতুন একটা 软件 安装 করতে চাই।",
       "languages": [
@@ -17,7 +17,7 @@
       ]
     },
     {
-      "path": "/mnt/asr/username/datasets/multilingual-tts/wavs/dd095854-b72d-4df6-8f70-f4ba7d8fafed.wav",
+      "path": "./datasets/multilingual-tts/wavs/dd095854-b72d-4df6-8f70-f4ba7d8fafed.wav",
       "speaker_global_id": "multilingual-ttsThomas",
       "asr_text_punct": "আমি তুর্কির ইস্তানবুলে গিয়েছিলাম, আর मुझे वहां की मिठाई बहुत पसंद आई।",
       "languages": [
