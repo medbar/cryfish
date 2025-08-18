@@ -2,7 +2,7 @@
   "annotation": [
     {
       "paths": [
-        "/mnt/asr/username/datasets/multilingual-tts/wavs/2e24ea57-78dc-438e-91e9-67c11c8f1c02.wav"
+        "./datasets/multilingual-tts/wavs/2e24ea57-78dc-438e-91e9-67c11c8f1c02.wav"
       ],
       "db_name": "multitts_filtered",
       "taxonomy": [
@@ -17,7 +17,7 @@
     },
     {
       "paths": [
-        "/mnt/asr/username/datasets/multilingual-tts/wavs/fb550abb-e5f7-4da7-8554-74301de2e537.wav"
+        "./datasets/multilingual-tts/wavs/fb550abb-e5f7-4da7-8554-74301de2e537.wav"
       ],
       "db_name": "multitts_filtered",
       "taxonomy": [
