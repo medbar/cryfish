@@ -11,7 +11,8 @@
     <p>
     Official PyTorch code and supplementary materials for the CryFish Audio LLM.
     </p>
-    <a href=""><img src="https://img.shields.io/badge/arXiv-soon-b31b1b" alt="version"></a>
+    <a href="https://arxiv.org/abs/2508.12666"><img src="https://img.shields.io/badge/arXiv-2508.12666-b31b1b" alt="version"></a>
+    <a href="https://www.isca-archive.org/interspeech_2025/mitrofanov25_interspeech.pdf"><img src="https://img.shields.io/badge/ISCA-2025-blue" alt="version"></a>
     <a href="https://huggingface.co/theio/CryFish"><img src="https://img.shields.io/badge/Cryfish-🤗-ffcc66" alt="version"></a>
     <a href="https://www.apache.org/licenses/LICENSE-2.0"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="mit"></a>
 </div>
